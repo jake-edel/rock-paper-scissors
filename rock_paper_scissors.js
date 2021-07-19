@@ -7,19 +7,18 @@ function getRandomIntInclusive(min, max) {
 
 function computerPlay() {
     var hand = getRandomIntInclusive(0,2)
-    console.log(hand);
+    //console.log(hand);
     if (hand === 0) {
         hand = "rock"
     } else if (hand === 1) {
         hand = "paper"
     } else if (hand = 2) {
-        hand = "scissor"
+        hand = "scissors"
     };
-    console.log(hand)
+    console.log(`Computer hand : ${hand}`)
     return hand;
 }
-const playerSelection = "rock"
-const computerSelection = computerPlay();
+
 
 function playRound (playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
@@ -34,4 +33,17 @@ function playRound (playerSelection, computerSelection) {
         console.log("You win!")
     }
 }
-playRound(playerSelection, computerSelection);
+
+function game() {
+
+
+    for(i = 0; i < 5; i++) {
+        var playerHand = window.prompt("Select rock, paper or scissors").toLowerCase;
+        //playerHand = playerHand.toLowerCase;
+        console.log(`Player hand: ${playerHand}`)
+
+        playRound(playerHand, computerPlay());
+    };
+}
+
+game();

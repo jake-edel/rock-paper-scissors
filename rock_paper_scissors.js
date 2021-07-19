@@ -38,8 +38,9 @@ function game() {
 
 
     for(i = 0; i < 5; i++) {
-        var playerHand = window.prompt("Select rock, paper or scissors").toLowerCase;
+        var playerInput = window.prompt("Select rock, paper or scissors").toLowerCase;
         //playerHand = playerHand.toLowerCase;
+        var playerHand = playerInput.toLowerCase;
         console.log(`Player hand: ${playerHand}`)
 
         playRound(playerHand, computerPlay());

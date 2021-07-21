@@ -1,0 +1,55 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+}
+
+body {
+    background-color: rgb(143, 143, 143);
+}
+
+header {
+    color: red;
+    background-color: rgb(7, 7, 7);
+}
+
+div {
+    /* background-color: yellow; */
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+main {
+
+    margin-top: 25rem;
+}
+
+#player-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    /* background: aqua; */
+}
+
+button {
+    color: white;
+    background-color: black;
+    /* border: none; */
+    height: 5rem;
+    width: 5rem;
+    border-radius: 20px;
+    border-color: white;
+}
+
+button:hover {
+    background-color:yellow;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}

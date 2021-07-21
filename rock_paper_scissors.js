@@ -1,64 +1,64 @@
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM Content Loaded")
+
+    const buttons = document.querySelectorAll('button');
+    console.log(buttons)
+
+    var playerScore = 0;
+    var computerScore = 0;
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            var playerInput = button.id;
+            game(playerInput, computerPlay());
+            console.log(`Player Score: ${playerScore} || Computer Score: ${computerScore}`)
+        });
+    });
 
 
+
+function game(player, computer) {
+    playRound(player, computer);
+    //console.log(`Player: ${player} || Computer: ${computer}`);
+}
+
+//Take computers and players hand and compare for a winner
+function playRound (player, computer) {
+    if (player === computer) {
+        //console.log("Tie Game!")
+    } else if ((player === "sword" && computer == "shield") 
+    || (player === "shield" && computer === "magic") 
+    || (player === "magic" && computer === "sword")) {
+        //console.log(("You lose!"))
+        computerScore++;
+    } else if ((player === "sword" && computer === "magic") 
+    || (player === "shield" && computer === "sword") 
+    || (player === "magic" && computer === "shield")) {
+        //console.log("You win!")
+        playerScore++;
+    }
+}
+
+
+});
+
+
+
+                                                                    //Logic for Computer
 //Return a random integer between 1 and 3
 function getRandomIntInclusive(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
 //Take random integer and apply either rock, paper or scissors.
 function computerPlay() {
     var hand = getRandomIntInclusive(0,2)
-    //console.log(hand);
     if (hand === 0) {
-        hand = "rock"
+        hand = "sword"
     } else if (hand === 1) {
-        hand = "paper"
+        hand = "shield"
     } else if (hand = 2) {
-        hand = "scissors"
+        hand = "magic"
     };
-    console.log(`Computer hand : ${hand}`)
     return hand;
-}
-
-//Take computers and players hand and compare for a winner
-function playRound (playerSelection, computerSelection) {
-    if (playerSelection === computerSelection) {
-        console.log("Tie Game!")
-    } else if ((playerSelection === "rock" && computerSelection == "paper") 
-    || (playerSelection === "paper" && computerSelection === "scissors") 
-    || (playerSelection === "scissors" && computerSelection === "rock")) {
-        console.log(("You lose!"))
-        computerWins++;
-    } else if ((playerSelection === "rock" && computerSelection === "scissors") 
-    || (playerSelection === "paper" && computerSelection === "rock") 
-    || (playerSelection === "scissors" && computerSelection === "paper")) {
-        console.log("You win!")
-        playerWins++;
-    }
-}
-
-//Play through game 5 times
-function game() {
-
-    for(i = 0; i < 5; i++) {
-        var playerInput = window.prompt("Select rock, paper or scissors").toLowerCase();
-        console.log(`Player hand: ${playerInput}`)
-        playRound(playerInput, computerPlay());
-        //playRound("rock", "scissors");
-
-        console.log(`Computer: ${computerWins} || Player: ${playerWins}`);
-    };
-}
-
-var computerWins = 0;
-var playerWins = 0;
-
-game();
-
-if (computerWins > playerWins) {
-    console.log("Computer wins!");
-} else if (computerWins < playerWins) {
-    console.log("Player Wins");
-} else {
-    console.log("Tie Game!")
 }

@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Content Loaded")
 
-    const winner = document.querySelector('#game-results')
-    const computerHand = document.querySelector('#computer-hand')
+    const winner = document.querySelector('#game')
+    const computerHand = document.querySelector('#computer')
 
     const buttons = document.querySelectorAll('button');
     console.log(buttons)
@@ -13,11 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             var playerInput = button.id;
+            animate(button.id);
             var computerInput = computerPlay();
             playRound(playerInput, computerInput);
             console.log(`Player Score: ${playerScore} || Computer Score: ${computerScore}`)
         });
     });
+
+    function animate (button) {
+        var animate = document.getElementById(button)
+        animate.className = 'animate';
+        setTimeout(() => { animate.classList.remove('animate');}, 2000);
+    }
+
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {
@@ -39,6 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+    var imgSword = document.createElement("img")
+    var imgShield = document.createElement("img")
+    var imgMagic = document.createElement("img")
+
+    imgSword.id = "computer-hand"
+    imgShield.id = "computer-hand"
+    imgMagic.id = "computer-hand"
+
+    imgSword.src = "images/sword.png"
+    imgShield.src = "images/shield.png"
+    imgMagic.src = "images/magic.png"
+
+    var computerChoice = document.getElementById("computer-icon")
+
     //Return a random integer between 1 and 3
     function getRandomIntInclusive(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -46,22 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Take random integer and apply either rock, paper or scissors.
     function computerPlay() {
-
-
+        computerChoice.removeChild(computerChoice.childNodes[0]);
         var hand = getRandomIntInclusive(0,2)
         if (hand === 0) {
             hand = "sword"
+            computerChoice.appendChild(imgSword);
         } else if (hand === 1) {
             hand = "shield"
+            computerChoice.appendChild(imgShield);
         } else if (hand = 2) {
             hand = "magic"
+            computerChoice.appendChild(imgMagic);
         };
-        computerHand.textContent = `Computer chooses ${hand}`
         return hand;
     }
 
 });
 
 
-
-                                                                    //Logic for Computer

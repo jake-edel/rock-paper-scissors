@@ -13,14 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             var playerInput = button.id;
-            playRound(playerInput, computerPlay());
+            var computerInput = computerPlay();
+            playRound(playerInput, computerInput);
             console.log(`Player Score: ${playerScore} || Computer Score: ${computerScore}`)
         });
     });
-
-
-
-
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {

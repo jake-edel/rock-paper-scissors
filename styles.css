@@ -53,14 +53,24 @@ div {
 
 #game {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     position: absolute;
     bottom: 11rem;
     font-size: 40px;
     left: 0;
     width: 100%;
-    background-color: yellow;
+    /* background-color: yellow; */
     width: 100%;
+}
+
+#winner {
+    opacity: 0;
+
+}
+
+.fadeout {
+    animation-name: fadeout;
+    animation-duration: 2s;
 }
 
 #player-buttons {
@@ -93,7 +103,7 @@ button {
     border-style: solid;
 }
 
-.animate {
+.animateButton {
     animation-duration: 2s;
     animation-name: fade;
     animation-timing-function: ease-in;
@@ -111,6 +121,11 @@ button:active {
 @keyframes fade{
     0% {background-color: brown;}
     100% {background-color: rgb(255, 255, 255);}
+}
+
+@keyframes fadeout{
+    0% {opacity: 1;}
+    100% {opacity: 0;}
 }
 
 footer {

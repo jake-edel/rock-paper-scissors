@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Content Loaded")
 
-    const winner = document.querySelector('#game')
+    const winner = document.querySelector('#winner')
     const computerHand = document.querySelector('#computer')
+
+    console.log(winner)
 
     const buttons = document.querySelectorAll('button');
     console.log(buttons)
@@ -13,22 +15,37 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             var playerInput = button.id;
-            animate(button.id);
+            buttonAnimate(button.id);
             var computerInput = computerPlay();
             playRound(playerInput, computerInput);
-            console.log(`Player Score: ${playerScore} || Computer Score: ${computerScore}`)
         });
     });
 
-    function animate (button) {
+    function buttonAnimate (button) {
         var animate = document.getElementById(button)
-        animate.className = 'animate';
-        setTimeout(() => { animate.classList.remove('animate');}, 2000);
+        animate.className = 'animateButton';
+        setTimeout(() => { animate.classList.remove('animateButton');}, 2000);
+    }
+
+    function fadeoutAnimate(text) {
+        var fadeout = document.getElementById(text)
+        fadeout.className = 'fadeout'
+        setTimeout(() => { fadeout.classList.remove('fadeout');}, 2000);
+
     }
 
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {
+
+        // var fadeout = document.getElementById(winner)
+        // fadeout.className = 'fadeout'
+        // setTimeout(() => { fadeout.classList.remove('fadeout');}, 2000);
+
+
+        fadeoutAnimate(winner.id);
+
+
         if (player === computer) {
             winner.textContent = "An even match"
             console.log("Tie Game!")

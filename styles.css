@@ -1,5 +1,10 @@
+@font-face {
+    font-family: lord;
+    src: url(fonts/ringbearer/RINGM___.TTF);
+}
+
 html {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: lord;
     font-size: 24px;
 }
 
@@ -10,6 +15,9 @@ body {
 header {
     color: red;
     background-color: rgb(7, 7, 7);
+    height: 5rem;
+    font-family: lord;
+    font-size: 70px;
 }
 
 div {
@@ -19,10 +27,10 @@ div {
 .center{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 main {
 
-    margin-top: 25rem;
 }
 
 #player-buttons {
@@ -30,17 +38,25 @@ main {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    /* background: aqua; */
+    margin-top: 15rem;
+    position: absolute;
+    background: aqua;
+}
+
+img {
+    height: 5rem;
+    width: auto;
+    /* border-radius: 10px; */
 }
 
 button {
     color: white;
-    background-color: black;
-    /* border: none; */
-    height: 5rem;
-    width: 5rem;
+    /* background-color: black; */
+    height: 7rem;
+    width: 7rem;
     border-radius: 20px;
-    border-color: white;
+    border-color: black;
+    border-width: 5px;
 }
 
 button:hover {

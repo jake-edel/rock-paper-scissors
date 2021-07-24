@@ -70,7 +70,7 @@ div {
 
 .fadeout {
     animation-name: fadeout;
-    animation-duration: 2s;
+    animation-duration: 1s;
 }
 
 #player-buttons {
@@ -104,8 +104,8 @@ button {
 }
 
 .animateButton {
-    animation-duration: 2s;
-    animation-name: fade;
+    animation-duration: 1s;
+    animation-name: colorfade;
     animation-timing-function: ease-in;
 
 }
@@ -118,7 +118,7 @@ button:active {
 }
 
 
-@keyframes fade{
+@keyframes colorfade{
     0% {background-color: brown;}
     100% {background-color: rgb(255, 255, 255);}
 }
@@ -126,6 +126,23 @@ button:active {
 @keyframes fadeout{
     0% {opacity: 1;}
     100% {opacity: 0;}
+}
+
+#game-over {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    /* margin: 10rem; */
+    opacity: 0.95;
+    color: brown;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: rgb(27, 27, 27);
+}
+
+#game-over text {
+    padding: 2rem;
 }
 
 footer {

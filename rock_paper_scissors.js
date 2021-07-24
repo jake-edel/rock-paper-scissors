@@ -3,49 +3,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const winner = document.querySelector('#winner')
     const computerHand = document.querySelector('#computer')
-
-    console.log(winner)
-
+    const playerHealthUI = document.querySelector('#playerHP')
+    const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
-    console.log(buttons)
+    const computerChoice = document.getElementById("computer-icon")
 
-    var playerScore = 0;
-    var computerScore = 0;
+
+    var playerHealth = 10;
+    var computerHealth = 10;
+    var lockGame = false;
+    var roundLength = 1000;
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            var playerInput = button.id;
-            buttonAnimate(button.id);
-            var computerInput = computerPlay();
-            playRound(playerInput, computerInput);
+            if (lockGame === false) {
+                lockGame = true;       
+                var playerInput = button.id;
+                buttonAnimate(button.id);
+                var computerInput = computerPlay();
+                playRound(playerInput, computerInput);
+                setTimeout(() => { lockGame = false; }, roundLength)
+            }
         });
     });
 
     function buttonAnimate (button) {
         var animate = document.getElementById(button)
         animate.className = 'animateButton';
-        setTimeout(() => { animate.classList.remove('animateButton');}, 2000);
+        setTimeout(() => { animate.classList.remove('animateButton');}, roundLength);
     }
 
     function fadeoutAnimate(text) {
         var fadeout = document.getElementById(text)
         fadeout.className = 'fadeout'
-        setTimeout(() => { fadeout.classList.remove('fadeout');}, 2000);
+        setTimeout(() => { fadeout.classList.remove('fadeout');}, roundLength);
 
     }
 
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {
-
-        // var fadeout = document.getElementById(winner)
-        // fadeout.className = 'fadeout'
-        // setTimeout(() => { fadeout.classList.remove('fadeout');}, 2000);
-
-
         fadeoutAnimate(winner.id);
-
-
         if (player === computer) {
             winner.textContent = "An even match"
             console.log("Tie Game!")
@@ -54,13 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
         || (player === "magic" && computer === "sword")) {
             winner.textContent = "Computer Wins"
             console.log(("You lose!"))
-            computerScore++;
+            playerHealth--;
+            updateHealth(playerHealth, computerHealth);
         } else if ((player === "sword" && computer === "magic") 
         || (player === "shield" && computer === "sword") 
         || (player === "magic" && computer === "shield")) {
             winner.textContent ="Player Wins"
             console.log("You win!")
-            playerScore++;
+            computerHealth--;
+            updateHealth(playerHealth, computerHealth);
+
         }
     }
 
@@ -77,7 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
     imgShield.src = "images/shield.png"
     imgMagic.src = "images/magic.png"
 
-    var computerChoice = document.getElementById("computer-icon")
+
+    function updateHealth () {
+        playerHealthUI.textContent = `Player HP = ${playerHealth}`;
+        computerHealthUI.textContent = `Enemy HP = ${computerHealth}`;
+    }
+
 
     //Return a random integer between 1 and 3
     function getRandomIntInclusive(min, max) {

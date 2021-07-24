@@ -34,6 +34,19 @@ div {
     align-items: center;
 }
 
+#console{
+    /* position: absolute; */
+    height: 6rem;
+    width: 30rem;
+    bottom: 1px solid black;
+    /* border-radius: 10px; */
+    /* border-color: rgb(172, 172, 172); */
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    overflow: scroll;
+    font-size: 24px;
+}
+
 #computer-icon {
     position: absolute;
     display: flex;
@@ -49,11 +62,13 @@ div {
     /* background-color: brown; */
     height: 10rem;
     width: 10rem;
+    opacity: 0;
 }
 
 #game {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     position: absolute;
     bottom: 11rem;
     font-size: 40px;
@@ -61,11 +76,6 @@ div {
     width: 100%;
     /* background-color: yellow; */
     width: 100%;
-}
-
-#winner {
-    opacity: 0;
-
 }
 
 .fadeout {
@@ -92,7 +102,7 @@ button img {
     /* border-radius: 10px; */
 }
 
-button {
+#player-buttons button {
     color: white;
     /* background-color: black; */
     height: 7rem;
@@ -113,7 +123,7 @@ button {
 button:hover {
     /* background-color:rgb(0, 255, 128); */
 }
-button:active {
+#player-button button:active {
     background-color: brown;
 }
 
@@ -132,12 +142,12 @@ button:active {
     height: 100%;
     width: 100%;
     position: absolute;
-    /* margin: 10rem; */
     opacity: 0.95;
     color: brown;
     top: 0;
     left: 0;
     z-index: 5;
+    font-size: 50px;
     background-color: rgb(27, 27, 27);
 }
 

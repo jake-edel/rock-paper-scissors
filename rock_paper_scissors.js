@@ -1,16 +1,17 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Content Loaded")
 
-    const winner = document.querySelector('#winner')
+    const textBox = document.querySelector('#console')
     const computerHand = document.querySelector('#computer')
     const playerHealthUI = document.querySelector('#playerHP')
     const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
     const computerChoice = document.getElementById("computer-icon")
 
-
-    var playerHealth = 10;
-    var computerHealth = 10;
+    var baseHealth = 10;
+    var playerHealth = baseHealth;
+    var computerHealth = baseHealth;
     var lockGame = false;
     var roundLength = 1000;
 
@@ -24,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 playRound(playerInput, computerInput);
                 setTimeout(() => { lockGame = false; }, roundLength)
             }
+
+            if (playerHealth === 0 || computerHealth === 0){
+                gameOver();
+            }
         });
     });
 
@@ -33,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { animate.classList.remove('animateButton');}, roundLength);
     }
 
-    function fadeoutAnimate(text) {
-        var fadeout = document.getElementById(text)
+    function fadeoutAnimate(id) {
+        var fadeout = document.getElementById(id)
         fadeout.className = 'fadeout'
         setTimeout(() => { fadeout.classList.remove('fadeout');}, roundLength);
 
@@ -43,40 +48,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {
-        fadeoutAnimate(winner.id);
+        //fadeoutAnimate(winner.id);
         if (player === computer) {
-            winner.textContent = "An even match"
-            console.log("Tie Game!")
+            createConsoleText("An even match")
         } else if ((player === "sword" && computer == "shield") 
         || (player === "shield" && computer === "magic") 
         || (player === "magic" && computer === "sword")) {
-            winner.textContent = "Computer Wins"
-            console.log(("You lose!"))
+            createConsoleText("Computer Wins")
             playerHealth--;
-            updateHealth(playerHealth, computerHealth);
+            updateHealth();
         } else if ((player === "sword" && computer === "magic") 
         || (player === "shield" && computer === "sword") 
         || (player === "magic" && computer === "shield")) {
-            winner.textContent ="Player Wins"
-            console.log("You win!")
+            createConsoleText("Player Wins")
             computerHealth--;
-            updateHealth(playerHealth, computerHealth);
-
+            updateHealth();
         }
     }
 
+    function createConsoleText (text){
+        var consoleElement = document.createElement('div')
+        consoleElement.textContent = text;
+        textBox.appendChild(consoleElement);
+        textBox.scrollTop = 10000000000;
+    }
 
-    var imgSword = document.createElement("img")
-    var imgShield = document.createElement("img")
-    var imgMagic = document.createElement("img")
+    function displayComputerChoice(hand) {
+        var imgComputerChoice = document.createElement('img')
+        imgComputerChoice.id = "computer-hand"
+        switch (hand){
+            case "sword":;
+                imgComputerChoice.src = "images/sword.png";
+                computerChoice.appendChild(imgComputerChoice);
+            case "shield":;
+                imgComputerChoice.src = "images/shield.png";
+                computerChoice.appendChild(imgComputerChoice);
+            case "magic":;
+                imgComputerChoice.src = "images/magic.png";
+                computerChoice.appendChild(imgComputerChoice);
+        }
+        fadeoutAnimate("computer-hand")
 
-    imgSword.id = "computer-hand"
-    imgShield.id = "computer-hand"
-    imgMagic.id = "computer-hand"
-
-    imgSword.src = "images/sword.png"
-    imgShield.src = "images/shield.png"
-    imgMagic.src = "images/magic.png"
+    }
 
 
     function updateHealth () {
@@ -85,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Return a random integer between 1 and 3
+    //Return a random integer between min and max
     function getRandomIntInclusive(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
@@ -96,17 +109,29 @@ document.addEventListener('DOMContentLoaded', () => {
         var hand = getRandomIntInclusive(0,2)
         if (hand === 0) {
             hand = "sword"
-            computerChoice.appendChild(imgSword);
+            displayComputerChoice(hand);
         } else if (hand === 1) {
             hand = "shield"
-            computerChoice.appendChild(imgShield);
+            displayComputerChoice(hand);
         } else if (hand = 2) {
             hand = "magic"
-            computerChoice.appendChild(imgMagic);
+            displayComputerChoice(hand);
         };
         return hand;
     }
 
+    function gameOver(){
+        var endGameScreen = document.createElement('div');
+        var restartButton = document.createElement('a')
+        var main = document.getElementsByTagName('main')
+        endGameScreen.id = "game-over"
+        endGameScreen.className = "center"
+        endGameScreen.textContent = "Game Over || "
+        restartButton.textContent = "Play Again?"
+        restartButton.href = "";
+        endGameScreen.appendChild(restartButton)
+        main[0].appendChild(endGameScreen);
+    }
 });
 
 

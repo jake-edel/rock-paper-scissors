@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
 
-    var baseHealth = 10;
+    var baseHealth = 20;
     var playerHealth = baseHealth;
     var computerHealth = baseHealth;
     var lockGame = false;
-    var roundLength = 1000;
+    var roundLength = 500;
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -42,24 +42,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    function animateHPbar(greenHPbar){
+        greenHPbar.className = 'hpanimation';
+        setTimeout(() => { greenHPbar.classList.remove('hpanimation');}, roundLength);
+    }
+
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {
         var damage = rollForDamage();
         if (player === computer) {
             createConsoleText("An even match")
+
         } else if ((player === "sword" && computer == "shield") 
         || (player === "shield" && computer === "magic") 
         || (player === "magic" && computer === "sword")) {
+
             createConsoleText(`Enemy hits you for ${damage} points`)
             playerHealth -= damage;
-            updateHealth(damage);
+            updateHealth(damage, "playerHPbar");
+
         } else if ((player === "sword" && computer === "magic") 
         || (player === "shield" && computer === "sword") 
         || (player === "magic" && computer === "shield")) {
+
             createConsoleText( `You hit enemy for ${damage} points`)
             computerHealth -= damage;
-            updateHealth(damage);
+            updateHealth(damage, "enemyHPbar");
         }
     }
 
@@ -96,13 +105,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function updateHealth (damage) {
-        console.log(damage)
-        var greenHPbar = document.getElementById("playerHPbar")
-        console.log(greenHPbar.style.width)
-        greenHPbar.style.width = 200px;
-        playerHealthUI.textContent = `Player HP = ${playerHealth}`;
-        computerHealthUI.textContent = `Enemy HP = ${computerHealth}`;
+    function updateHealth (damage, HPbar) {
+        // console.log(damage)
+        var greenHPbar = document.getElementById(HPbar)
+        var hpBarSize = getComputedStyle(greenHPbar);
+        var pattern = new RegExp(/\d+/)
+        var hpBarSizeStripped = pattern.exec(hpBarSize.width)
+        if (damage * 20 > hpBarSizeStripped){
+            greenHPbar.style.width = "0px";
+        } else { hpBarSizeStripped[0] -= (damage * 20) }
+        greenHPbar.style.width = hpBarSizeStripped + "px";
+        if (damage > 0){
+            animateHPbar(greenHPbar);
+        }
+
+        //playerHealthUI.textContent = `Player HP = ${playerHealth}`;
+        //computerHealthUI.textContent = `Enemy HP = ${computerHealth}`;
     }
 
 

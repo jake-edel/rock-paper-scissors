@@ -80,6 +80,7 @@ div {
     bottom: 5px;
     height: 50px;
     width: 400px;
+    border-radius: 10px;
 }
 
 #playerHPbarRed {
@@ -90,6 +91,8 @@ div {
     height: 50px;
     width: 400px;
     border: 5px solid black;
+    border-radius: 13px;
+
 }
 
 #enemyHP {
@@ -105,7 +108,9 @@ div {
     right: 5px;
     bottom: 5px;
     height: 50px;
-    width: 360px;
+    width: 400px;
+    border-radius: 10px;
+
 }
 
 #enemyHPbarRed {
@@ -116,6 +121,8 @@ div {
     height: 50px;
     width: 400px;
     border: 5px solid black;
+    border-radius: 13px;
+
 }
 
 #game {
@@ -164,7 +171,12 @@ button img {
 }
 
 .fadeout {
-    animation-name: fadeout;
+    animation-name: opacityfade;
+    animation-duration: 0.5s;
+}
+
+.hpanimation {
+    animation-name: hpAnimation;
     animation-duration: 1s;
 }
 
@@ -181,9 +193,14 @@ button:hover {
     100% {background-color: rgb(255, 255, 255);}
 }
 
-@keyframes fadeout{
+@keyframes opacityfade{
     0% {opacity: 1;}
     100% {opacity: 0;}
+}
+
+@keyframes hpAnimation{
+    0% {background-color: black;}
+    100% {background-color: white}
 }
 
 #game-over {

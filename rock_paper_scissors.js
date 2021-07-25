@@ -2,12 +2,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Content Loaded")
 
-    const textBox = document.querySelector('#console')
-    const computerHand = document.querySelector('#computer')
     const playerHealthUI = document.querySelector('#playerHP')
     const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
-    const computerChoice = document.getElementById("computer-icon")
 
     var baseHealth = 10;
     var playerHealth = baseHealth;
@@ -18,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             if (lockGame === false) {
-                lockGame = true;       
+                lockGame = true;  
                 var playerInput = button.id;
                 buttonAnimate(button.id);
                 var computerInput = computerPlay();
@@ -26,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => { lockGame = false; }, roundLength)
             }
 
-            if (playerHealth === 0 || computerHealth === 0){
+            if (playerHealth <= 0 || computerHealth <= 0){
                 gameOver();
             }
         });
@@ -48,25 +45,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Take computers and players hand and compare for a winner
     function playRound (player, computer) {
-        //fadeoutAnimate(winner.id);
+        var damage = rollForDamage();
         if (player === computer) {
             createConsoleText("An even match")
         } else if ((player === "sword" && computer == "shield") 
         || (player === "shield" && computer === "magic") 
         || (player === "magic" && computer === "sword")) {
-            createConsoleText("Computer Wins")
-            playerHealth--;
+            createConsoleText(`Enemy hits you for ${damage} points`)
+            playerHealth -= damage;
             updateHealth();
         } else if ((player === "sword" && computer === "magic") 
         || (player === "shield" && computer === "sword") 
         || (player === "magic" && computer === "shield")) {
-            createConsoleText("Player Wins")
-            computerHealth--;
+            createConsoleText( `You hit enemy for ${damage} points`)
+            computerHealth -= damage;
             updateHealth();
         }
     }
 
     function createConsoleText (text){
+        const textBox = document.querySelector('#console')
         var consoleElement = document.createElement('div')
         consoleElement.textContent = text;
         textBox.appendChild(consoleElement);
@@ -74,7 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayComputerChoice(hand) {
-        var imgComputerChoice = document.createElement('img')
+        const computerChoice = document.getElementById("computer-icon")
+        const imgComputerChoice = document.createElement('img')
+        computerChoice.removeChild(computerChoice.childNodes[0]);
         imgComputerChoice.id = "computer-hand"
         switch (hand){
             case "sword":;
@@ -91,6 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    function rollForDamage (){
+        return getRandomIntInclusive(0, 5) 
+    }
+
 
     function updateHealth () {
         playerHealthUI.textContent = `Player HP = ${playerHealth}`;
@@ -105,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Take random integer and apply either rock, paper or scissors.
     function computerPlay() {
-        computerChoice.removeChild(computerChoice.childNodes[0]);
         var hand = getRandomIntInclusive(0,2)
         if (hand === 0) {
             hand = "sword"

@@ -53,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
         || (player === "magic" && computer === "sword")) {
             createConsoleText(`Enemy hits you for ${damage} points`)
             playerHealth -= damage;
-            updateHealth();
+            updateHealth(damage);
         } else if ((player === "sword" && computer === "magic") 
         || (player === "shield" && computer === "sword") 
         || (player === "magic" && computer === "shield")) {
             createConsoleText( `You hit enemy for ${damage} points`)
             computerHealth -= damage;
-            updateHealth();
+            updateHealth(damage);
         }
     }
 
@@ -96,7 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function updateHealth () {
+    function updateHealth (damage) {
+        console.log(damage)
+        var greenHPbar = document.getElementById("playerHPbar")
+        console.log(greenHPbar.style.width)
+        greenHPbar.style.width = 200px;
         playerHealthUI.textContent = `Player HP = ${playerHealth}`;
         computerHealthUI.textContent = `Enemy HP = ${computerHealth}`;
     }

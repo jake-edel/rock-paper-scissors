@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
 
-    const baseHealth = 40;
+    const baseHealth = 6;
     var playerHealth = baseHealth;
     var computerHealth = baseHealth;
     var lockGame = false;
@@ -23,14 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 playRound(playerInput, computerInput);
                 setTimeout(() => { lockGame = false; }, roundLength)
             }
-
-
+            if (playerHealth <= 0 || computerHealth <= 0){
+                gameOver(playerHealth, computerHealth);
+            }
         });
     });
 
-    if (playerHealth <= 0 || computerHealth <= 0){
-        //gameOver();
-    }
 
 
     //Take computers and players hand and compare for a winner
@@ -85,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function updateHealth (damage, HPbar) {
-
         if (HPbar === "playerHPbar") {
             createConsoleText(`Enemy hits you for ${damage} points`)
             playerHealth -= damage;
@@ -107,11 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateHealthUI(damage, HPbar) {
-
-
         var greenHPbar = document.getElementById(HPbar);
         var hpBarSizeStripped = getHPBarSize(HPbar);
-        console.log(hpPixelSize)
         if (damage * hpPixelSize > hpBarSizeStripped){
             greenHPbar.style.width = "0px";
             animateHPbar(greenHPbar)
@@ -170,13 +164,19 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { greenHPbar.classList.remove('hpanimation');}, roundLength);
     }
 
-    function gameOver(){
+    function gameOver(playerHealth, computerHealth){
         var endGameScreen = document.createElement('div');
         var restartButton = document.createElement('a')
         var main = document.getElementsByTagName('main')
         endGameScreen.id = "game-over"
         endGameScreen.className = "center"
-        endGameScreen.textContent = "Game Over || "
+        if (playerHealth <= 0) {
+            endGameScreen.textContent = "You have lost || "
+
+        } else if (computerHealth <= 0) {
+            endGameScreen.textContent = "You have won|| "
+
+        }
         restartButton.textContent = "Play Again?"
         restartButton.href = "";
         endGameScreen.appendChild(restartButton)

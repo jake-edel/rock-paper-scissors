@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
 
-    var baseHealth = 20;
+    const baseHealth = 40;
     var playerHealth = baseHealth;
     var computerHealth = baseHealth;
     var lockGame = false;
     var roundLength = 500;
+    var hpPixelSize = getHPBarSize("playerHPbar") / baseHealth;
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -23,28 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => { lockGame = false; }, roundLength)
             }
 
-            if (playerHealth <= 0 || computerHealth <= 0){
-                gameOver();
-            }
+
         });
     });
 
-    function buttonAnimate (button) {
-        var animate = document.getElementById(button)
-        animate.className = 'animateButton';
-        setTimeout(() => { animate.classList.remove('animateButton');}, roundLength);
-    }
-
-    function fadeoutAnimate(id) {
-        var fadeout = document.getElementById(id)
-        fadeout.className = 'fadeout'
-        setTimeout(() => { fadeout.classList.remove('fadeout');}, roundLength);
-
-    }
-
-    function animateHPbar(greenHPbar){
-        greenHPbar.className = 'hpanimation';
-        setTimeout(() => { greenHPbar.classList.remove('hpanimation');}, roundLength);
+    if (playerHealth <= 0 || computerHealth <= 0){
+        //gameOver();
     }
 
 
@@ -57,17 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if ((player === "sword" && computer == "shield") 
         || (player === "shield" && computer === "magic") 
         || (player === "magic" && computer === "sword")) {
-
-            createConsoleText(`Enemy hits you for ${damage} points`)
-            playerHealth -= damage;
             updateHealth(damage, "playerHPbar");
 
         } else if ((player === "sword" && computer === "magic") 
         || (player === "shield" && computer === "sword") 
         || (player === "magic" && computer === "shield")) {
-
-            createConsoleText( `You hit enemy for ${damage} points`)
-            computerHealth -= damage;
             updateHealth(damage, "enemyHPbar");
         }
     }
@@ -106,23 +85,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function updateHealth (damage, HPbar) {
-        // console.log(damage)
-        var greenHPbar = document.getElementById(HPbar)
-        var hpBarSize = getComputedStyle(greenHPbar);
-        var pattern = new RegExp(/\d+/)
-        var hpBarSizeStripped = pattern.exec(hpBarSize.width)
-        if (damage * 20 > hpBarSizeStripped){
-            greenHPbar.style.width = "0px";
-        } else { hpBarSizeStripped[0] -= (damage * 20) }
-        greenHPbar.style.width = hpBarSizeStripped + "px";
-        if (damage > 0){
-            animateHPbar(greenHPbar);
-        }
 
-        //playerHealthUI.textContent = `Player HP = ${playerHealth}`;
-        //computerHealthUI.textContent = `Enemy HP = ${computerHealth}`;
+        if (HPbar === "playerHPbar") {
+            createConsoleText(`Enemy hits you for ${damage} points`)
+            playerHealth -= damage;
+            if (playerHealth < 0){
+                playerHealth = 0;
+            }
+            updateHealthUI(damage, HPbar);
+            playerHealthUI.textContent = `Player HP = ${playerHealth}`;
+
+        } else if (HPbar === "enemyHPbar") {
+            createConsoleText( `You hit enemy for ${damage} points`)
+            computerHealth -= damage; 
+            if (computerHealth < 0){
+                computerHealth = 0;
+            }
+            updateHealthUI(damage, HPbar);
+            computerHealthUI.textContent = `Enemy HP = ${computerHealth}`;
+        }
     }
 
+    function updateHealthUI(damage, HPbar) {
+
+
+        var greenHPbar = document.getElementById(HPbar);
+        var hpBarSizeStripped = getHPBarSize(HPbar);
+        console.log(hpPixelSize)
+        if (damage * hpPixelSize > hpBarSizeStripped){
+            greenHPbar.style.width = "0px";
+            animateHPbar(greenHPbar)
+        } 
+        else if (damage > 0){ 
+            hpBarSizeStripped[0] -= (damage * hpPixelSize)
+            greenHPbar.style.width = hpBarSizeStripped + "px";
+            animateHPbar(greenHPbar)}
+    }
+
+    function getHPBarSize (HPbar){
+        var greenHPbar = document.getElementById(HPbar);
+        var hpBarSize = getComputedStyle(greenHPbar);
+        var pattern = new RegExp(/\d+/)
+        return pattern.exec(hpBarSize.width);
+    }
+
+    
 
     //Return a random integer between min and max
     function getRandomIntInclusive(min, max) {
@@ -143,6 +150,24 @@ document.addEventListener('DOMContentLoaded', () => {
             displayComputerChoice(hand);
         };
         return hand;
+    }
+
+        function buttonAnimate (button) {
+        var animate = document.getElementById(button)
+        animate.className = 'animateButton';
+        setTimeout(() => { animate.classList.remove('animateButton');}, roundLength);
+    }
+
+    function fadeoutAnimate(id) {
+        var fadeout = document.getElementById(id)
+        fadeout.className = 'fadeout'
+        setTimeout(() => { fadeout.classList.remove('fadeout');}, roundLength);
+
+    }
+
+    function animateHPbar(greenHPbar){
+        greenHPbar.className = 'hpanimation';
+        setTimeout(() => { greenHPbar.classList.remove('hpanimation');}, roundLength);
     }
 
     function gameOver(){

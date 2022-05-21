@@ -9,27 +9,63 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="center">
-            Sword, Shield, Magic
+    <header class="center">
+        <div>
+            Sword, Shield, Spell
         </div>
 
-        <div class="center">
-            Sword beats Magic, Shield beats Sword, Magic beats Shield
+        <div>
+            <!-- Sword beats Magic, Shield beats Sword, Magic beats Shield -->
         </div>
     </header>
     <main>
-        <div id=player-buttons>
-            <button id="sword">Sword</button>
-            <button id="shield">Shield</button>
-            <button id="magic">Magic</button>
+
+        <div id="computer-icon" class="center">     
         </div>
+
+        <div id="game" class="center">
+
+            <div id="playerHP">
+                Player HP
+            </div>
+
+            <div id="playerHPbarRed">
+            </div>
+
+            <div id="playerHPbar">
+            </div>
+
+            <div id="console">
+            </div>
+
+            <div id="enemyHP">
+                Enemy HP
+            </div>
+
+            <div id="enemyHPbar">
+            </div>
+
+            <div id="enemyHPbarRed">
+            </div>
+
+        </div>
+
+        <div id="player-buttons">
+            <button id="sword"><img src=images/sword.png></button>
+            <button id="shield"><img src=images/shield.png></button>
+            <button id="magic"><img src=images/magic.png></button>
+        </div>
+
+
     </main>
 
 
     <footer>
-        <div>
-            Game by: Jakob Edelstein
+        <div id="instructions">
+            Sword beats Magic, Magic beats Shield, Shield beats Sword
+        </div>
+        <div id="name">
+            Jakob Edelstein
         </div>
     </footer>
 

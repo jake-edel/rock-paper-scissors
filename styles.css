@@ -1,5 +1,10 @@
+@font-face {
+    font-family: lord;
+    src: url(fonts/ringbearer/RINGM___.TTF);
+}
+
 html {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: lord;
     font-size: 24px;
 }
 
@@ -8,21 +13,127 @@ body {
 }
 
 header {
-    color: red;
+    color: brown;
     background-color: rgb(7, 7, 7);
+    height: 5rem;
+    font-family: lord;
+    font-size: 70px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
 }
 
 div {
-    /* background-color: yellow; */
+    /* background-color: rgb(255, 255, 0); */
 }
 
 .center{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
-main {
 
-    margin-top: 25rem;
+#console{
+    /* position: absolute; */
+    height: 6rem;
+    width: 30rem;
+    border:12px double black;  
+    background-color: rgb(255, 255, 255);
+    z-index: 2;
+    overflow: scroll;
+    font-size: 24px;
+}
+
+#computer-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 24rem;
+    z-index: -3;
+    bottom: 11rem;
+    left: 0;
+    background-color: rgb(94, 94, 94);
+}
+
+#computer-hand{
+    position: relative;
+    bottom: 3rem;
+    height: 10rem;
+    width: 10rem;
+    opacity: 0;
+}
+
+#playerHP {
+    position: relative;
+    left: 5px;
+    bottom: 5px;
+
+}
+
+#playerHPbar {
+    background-color: chartreuse;
+    position: absolute;
+    z-index: -1;
+    left: 5px;
+    bottom: 5px;
+    height: 50px;
+    width: 400px;
+    border-radius: 5px;
+}
+
+#playerHPbarRed {
+    background-color: red;
+    position: absolute;
+    z-index: -2;
+    left: 0;
+    height: 50px;
+    width: 400px;
+    border: 5px solid black;
+    border-radius: 13px;
+
+}
+
+#enemyHP {
+    position: relative;
+    right: 5px;
+    bottom: 5px;
+}
+
+#enemyHPbar {
+    background-color: chartreuse;
+    position: absolute;
+    z-index: -1;
+    right: 5px;
+    bottom: 5px;
+    height: 50px;
+    width: 400px;
+    border-radius: 5px;
+
+}
+
+#enemyHPbarRed {
+    background-color: red;
+    position: absolute;
+    z-index: -2;
+    right: 0;
+    height: 50px;
+    width: 400px;
+    border: 5px solid black;
+    border-radius: 13px;
+
+}
+
+#game {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 11rem;
+    font-size: 40px;
+    left: 0;
+    width: 100%;
 }
 
 #player-buttons {
@@ -30,26 +141,104 @@ main {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    /* background: aqua; */
+    margin-top: 15rem;
+    height: 8rem;
+    left: 0;
+    bottom: 3rem;
+    position: absolute;
+    background: rgb(41, 41, 41);
 }
 
-button {
-    color: white;
-    background-color: black;
-    /* border: none; */
+button img {
     height: 5rem;
-    width: 5rem;
+    width: auto;
+}
+
+#player-buttons button {
+    color: white;
+    height: 7rem;
+    width: 7rem;
     border-radius: 20px;
-    border-color: white;
+    border-color: rgb(0, 0, 0);
+    border-width: 10px;
+    border-style: solid;
+}
+
+.animateButton {
+    animation-duration: 1s;
+    animation-name: colorfade;
+    animation-timing-function: ease-out;
+}
+
+.fadeout {
+    animation-name: opacityfade;
+    animation-duration: 0.5s;
+}
+
+.hpanimation {
+    animation-name: hpAnimation;
+    animation-duration: 1s;
 }
 
 button:hover {
-    background-color:yellow;
+    /* background-color:rgb(0, 255, 128); */
+}
+#player-button button:active {
+    /* background-color: brown; */
+}
+
+
+@keyframes colorfade{
+    0% {background-color: brown;}
+    100% {background-color: rgb(255, 255, 255);}
+}
+
+@keyframes opacityfade{
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@keyframes hpAnimation{
+    0% {background-color: black;}
+    100% {background-color: white}
+}
+
+#game-over {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    opacity: 0.95;
+    color: brown;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    font-size: 50px;
+    background-color: rgb(27, 27, 27);
+}
+
+#game-over text {
+    padding: 2rem;
 }
 
 footer {
     position: absolute;
+    color: brown;
+    height: 3rem;
     bottom: 0;
     left: 0;
     width: 100%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#instructions {
+    position: relative;
+    /* background-color: green; */
+    left: 1rem;
+}
+#name {
+    position: relative;
+    right: 1rem;
 }

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const computerHealthUI = document.querySelector('#enemyHP')
     const buttons = document.querySelectorAll('button');
 
-    const baseHealth = 6;
+    const baseHealth = 20;
     var playerHealth = baseHealth;
     var computerHealth = baseHealth;
     var lockGame = false;
